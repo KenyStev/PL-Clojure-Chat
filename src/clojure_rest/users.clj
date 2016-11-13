@@ -8,14 +8,33 @@
       	))
 
     (if (not (.exists (as-file "db/clojurechat.h2.db") ))
-    (sql/with-connection (db-connection)
-      ;(sql/drop-table :users) ; no need to do that for in-memory databases
-      (sql/create-table :users [:id "varchar(256)" "primary key"]
-                                   [:email "varchar(150)"]
-                                   [:username :varchar]
-                                   [:password :varchar]
-                                   [:realname :varchar]
-                                   )))
+      (sql/with-connection (db-connection)
+        ;(sql/drop-table :users) ; no need to do that for in-memory databases
+        (sql/create-table :users 
+          [:id "varchar(256)" "primary key"]
+          [:email "varchar(150)"]
+          [:username :varchar]
+          [:password :varchar]
+          [:realname :varchar]
+        )
+
+        (sql/create-table :friends 
+          [:id "varchar(256)" "primary key"]
+          [:user_id1 "varchar(256)"]
+          [:user_id2 "varchar(256)"]
+          [:since :date]
+          ["foreign key" "(user_id1) references users(id)"]
+          ["foreign key" "(user_id2) references users(id)"]
+        )
+
+        ;(sql/transaction
+        ;  ["create table FRIENDS ( id varchar(256), user_id_1 varchar(256), user_id2 varchar(256),
+        ;    since date, primary key (id), foreign key (user_id1) references users(id),
+        ;    foreign key (user_id2) references users(id)
+        ;  )"]
+        ;)
+      )
+    )
 
     (defn get-all-users []
       (response
@@ -29,10 +48,12 @@
         (sql/with-query-results results
           ["select * from users where id = ?" id]
           (cond
-            (empty? results) {:status 404}
+            (empty? results) {:status 404 :body "User not found"}
             :else (response (first results))))))
 
-    (defn create-new-user [user]
+    (defn create-new-user [user headers]
+    	(println (get user "realname"))
+      (println (get headers "content-type"))
       (let [id (uuid)]
         (sql/with-connection (db-connection)
           (let [n_user (assoc user "id" id)]

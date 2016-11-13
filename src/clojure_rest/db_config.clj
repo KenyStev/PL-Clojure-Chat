@@ -16,7 +16,7 @@
                    (.setJdbcUrl (str "jdbc:" (:subprotocol config) ":" (:subname config)))
                    (.setUser (:user config))
                    (.setPassword (:password config))
-                   (.setMaxPoolSize 5)
+                   (.setMaxPoolSize 6)
                    (.setMinPoolSize 1)
                    (.setInitialPoolSize 1))]
         {:datasource cpds}))
