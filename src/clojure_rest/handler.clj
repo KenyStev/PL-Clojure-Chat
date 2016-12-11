@@ -15,6 +15,7 @@
     [clojure-rest.friends :refer :all]
     [clojure-rest.emojis :refer :all]
     [clojure-rest.messages :refer :all]
+    [clojure-rest.rooms :refer :all]
     [compojure.route :as route]
     [ring.middleware.cors :refer [wrap-cors]]
   )
@@ -62,6 +63,16 @@
       (GET "/" [] (get-message id))
       (PUT "/" {body :body} (update-message body))
       (DELETE "/" [] (delete-message id))
+      ))
+    )
+  )
+  (context "/rooms" [] (defroutes room-routes
+    (GET "/" [] (get-all-rooms))
+    (POST "/new/:admin" {body :body admin :admin} (create-new-room admin body))
+    (context "/:name_room" [name_room] (defroutes rooms-routes
+      (GET "/" [] (get-room name_room))
+      (PUT "/" {body :body} (update-room name_room body))
+      (DELETE "/" [] (delete-room name_room))
       ))
     )
   )

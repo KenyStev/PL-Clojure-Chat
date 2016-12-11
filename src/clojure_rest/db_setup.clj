@@ -46,8 +46,8 @@
 
     (sql/create-table :rooms_users
       [:id "varchar(256)" "primary key"]
-      [:room "varchar(256)"]
-      [:user "varchar(256)"]
+      [:room_id "varchar(256)"]
+      [:user_id "varchar(256)"]
       [:is_admin "boolean"]
       ["foreign key" "(room_id) references rooms(name)"]
       ["foreign key" "(user_id) references users(email)"]

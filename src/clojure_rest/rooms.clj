@@ -32,9 +32,8 @@
   )
 )
 
-(defn create-new-room [email_user room headers]
+(defn create-new-room [email_user room]
 	(println (get room "name"))
-  (println (get headers "content-type"))
   (sql/with-connection (db-connection)
     (sql/insert-record :rooms room)
   )
