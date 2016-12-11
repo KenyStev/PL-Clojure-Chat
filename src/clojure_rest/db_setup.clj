@@ -37,6 +37,7 @@
       [:to_who "varchar(256)"]
       [:message "varchar(2048)"]
       [:sent "datetime"]
+      [:seen "boolean"]
     )
 
     (sql/create-table :rooms

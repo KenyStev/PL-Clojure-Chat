@@ -16,6 +16,7 @@
     [clojure-rest.emojis :refer :all]
     [clojure-rest.messages :refer :all]
     [clojure-rest.rooms :refer :all]
+    [clojure-rest.rooms_users :refer :all]
     [compojure.route :as route]
     [ring.middleware.cors :refer [wrap-cors]]
   )
@@ -76,6 +77,7 @@
       ))
     )
   )
+  (GET "/rooms-users" [] (get-all-rooms-users))
   (route/not-found "Not Found")
 )
 

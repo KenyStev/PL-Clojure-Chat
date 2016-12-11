@@ -37,10 +37,12 @@
   (sql/with-connection (db-connection)
     (sql/insert-record :rooms room)
   )
-  (let [room_user {:room room :user email_user :is_admin true}]
-  	(create-new-room-user room_user)
-  )
-  (get-room (room "name"))
+  (let [room_id (get room "name")]
+	  (let [room_user {:room_id room_id :user_id email_user :is_admin true}]
+	  	(create-new-room-user room_user)
+	  )
+	)
+  (get-room (get room "name"))
 )
 
 (defn update-room [room_name room]

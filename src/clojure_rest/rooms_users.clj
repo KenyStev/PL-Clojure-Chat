@@ -33,14 +33,14 @@
 
 (defn create-new-room-user [room-user]
   (let [id (uuid)]
-  	(println (get room-user "user"))
-    (println (get room-user "room"))
+  	(println (get room-user "user_id"))
+    (println (get room-user "room_id"))
     (println (get room-user "is_admin"))
     (sql/with-connection (db-connection)
       (let [n_room-user (assoc room-user "id" id)]
-        (sql/insert-record :rooms_users room-user)
+        (sql/insert-record :rooms_users n_room-user)
       )
-      (get-room-user (room-user "id"))
+      (get-room-user id)
     )
   )
 )
