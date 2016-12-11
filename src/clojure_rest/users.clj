@@ -65,7 +65,7 @@
     (sql/with-query-results results 
       ["select * from users where email = ? and password = ?" (get user "email") (get user "password")] 
       (cond (empty? results) {:status 404 :body "Email and Password don't match"}
-        :else (response "Login Successful")
+        :else (response (first results))
       )
     )
   )
