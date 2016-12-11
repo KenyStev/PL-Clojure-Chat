@@ -37,6 +37,21 @@
       [:to_who "varchar(256)"]
       [:message "varchar(2048)"]
       [:sent "datetime"]
+      [:seen "boolean"]
+    )
+
+    (sql/create-table :rooms
+      [:name "varchar(256)" "primary key"]
+      [:created_at "datetime"]
+    )
+
+    (sql/create-table :rooms_users
+      [:id "varchar(256)" "primary key"]
+      [:room_id "varchar(256)"]
+      [:user_id "varchar(256)"]
+      [:is_admin "boolean"]
+      ["foreign key" "(room_id) references rooms(name)"]
+      ["foreign key" "(user_id) references users(email)"]
     )
 
     ;(sql/transaction

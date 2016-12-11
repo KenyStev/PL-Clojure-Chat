@@ -15,6 +15,8 @@
     [clojure-rest.friends :refer :all]
     [clojure-rest.emojis :refer :all]
     [clojure-rest.messages :refer :all]
+    [clojure-rest.rooms :refer :all]
+    [clojure-rest.rooms_users :refer :all]
     [compojure.route :as route]
     [ring.middleware.cors :refer [wrap-cors]]
   )
@@ -36,7 +38,7 @@
     )
   )
   (context "/friends" [] (defroutes friend-routes
-    (GET "/:user_id" [user_id] (get-all-friends user_id))
+    (GET "/:user_email" [user_email] (get-all-friends user_email))
     (POST "/" {body :body headers :headers} (create-new-friend body headers))
     (context "/:id" [id] (defroutes friends-routes
       (GET "/" [] (get-friend id))
@@ -65,6 +67,17 @@
       ))
     )
   )
+  (context "/rooms" [] (defroutes room-routes
+    (GET "/" [] (get-all-rooms))
+    (POST "/new/:admin" {body :body admin :admin} (create-new-room admin body))
+    (context "/:name_room" [name_room] (defroutes rooms-routes
+      (GET "/" [] (get-room name_room))
+      (PUT "/" {body :body} (update-room name_room body))
+      (DELETE "/" [] (delete-room name_room))
+      ))
+    )
+  )
+  (GET "/rooms-users" [] (get-all-rooms-users))
   (route/not-found "Not Found")
 )
 

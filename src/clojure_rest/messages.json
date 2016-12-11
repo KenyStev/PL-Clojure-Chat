@@ -1,3 +1,17 @@
+//users
+{
+	"username":"kenystev",
+	"email":"kenystev@gmail.com",
+	"password":"Hola123",
+	"realname":"Kevin Estevez"
+}
+
+//rooms
+{
+	"name":"trolles"
+}
+
+//messages
 {
 	"from_who":"kenystev",
 	"to_who":"rnexer",

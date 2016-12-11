@@ -31,13 +31,33 @@
   )
 )
 
+(defn exist? [email]
+  (println "viendo si existe")
+  (sql/with-connection (db-connection)
+    (sql/with-query-results results
+      ["select * from users where email = ?" email]
+      (cond
+        (empty? results) 0
+        :else 1
+      )
+    )
+  )
+)
+
 (defn create-new-user [user headers]
 	(println (get user "realname"))
   (println (get headers "content-type"))
-  (sql/with-connection (db-connection)
-    (sql/insert-record :users user)
+  (let [result (exist? (get user "email"))]
+    (println result)
+    (if (= result 0)
+      (sql/with-connection (db-connection)
+        (sql/insert-record :users user)
+        (get-user (get user "email"))
+      )
+
+      {:status 500 :body "User already exist!"}
+    )
   )
-  (get-user (user "email"))
 )
 
 (defn update-user [email user]
