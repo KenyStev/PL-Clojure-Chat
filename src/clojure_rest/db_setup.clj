@@ -44,7 +44,7 @@
       [:created_at "datetime"]
     )
 
-    (sql/create-table :users_rooms
+    (sql/create-table :rooms_users
       [:id "varchar(256)" "primary key"]
       [:room "varchar(256)"]
       [:user "varchar(256)"]

@@ -5,6 +5,7 @@
   (:require 
   	[clojure-rest.db_config :refer :all]
   	[clojure.java.jdbc :as sql]
+  	[clojure-rest.rooms_users :refer :all]
   )
 )
 
