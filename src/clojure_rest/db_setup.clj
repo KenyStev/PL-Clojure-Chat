@@ -39,6 +39,20 @@
       [:sent "datetime"]
     )
 
+    (sql/create-table :rooms
+      [:name "varchar(256)" "primary key"]
+      [:created_at "datetime"]
+    )
+
+    (sql/create-table :users_rooms
+      [:id "varchar(256)" "primary key"]
+      [:room "varchar(256)"]
+      [:user "varchar(256)"]
+      [:is_admin "boolean"]
+      ["foreign key" "(room_id) references rooms(name)"]
+      ["foreign key" "(user_id) references users(email)"]
+    )
+
     ;(sql/transaction
     ;  ["create table FRIENDS ( id varchar(256), user_id_1 varchar(256), user_id2 varchar(256),
     ;    since date, primary key (id), foreign key (user_id1) references users(id),

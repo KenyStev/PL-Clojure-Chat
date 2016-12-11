@@ -36,7 +36,7 @@
     )
   )
   (context "/friends" [] (defroutes friend-routes
-    (GET "/:user_id" [user_id] (get-all-friends user_id))
+    (GET "/:user_email" [user_email] (get-all-friends user_email))
     (POST "/" {body :body headers :headers} (create-new-friend body headers))
     (context "/:id" [id] (defroutes friends-routes
       (GET "/" [] (get-friend id))
