@@ -19,10 +19,10 @@
   )
 )
 
-(defn get-user [id]
+(defn get-user [email]
   (sql/with-connection (db-connection)
     (sql/with-query-results results
-      ["select * from users where id = ?" id]
+      ["select * from users where email = ?" email]
       (cond
         (empty? results) {:status 404 :body "User not found"}
         :else (response (first results))
@@ -34,28 +34,24 @@
 (defn create-new-user [user headers]
 	(println (get user "realname"))
   (println (get headers "content-type"))
-  (let [id (uuid)]
-    (sql/with-connection (db-connection)
-      (let [n_user (assoc user "id" id)]
-        (sql/insert-record :users n_user)
-      )
-    )
-    (get-user id)
+  (sql/with-connection (db-connection)
+    (sql/insert-record :users user)
   )
+  (get-user (user "email"))
 )
 
-(defn update-user [id user]
+(defn update-user [email user]
   (sql/with-connection (db-connection)
-    (let [u_user (assoc user "id" id)]
-      (sql/update-values :users ["id=?" id] u_user)
+    (let [u_user (assoc user "email" email)]
+      (sql/update-values :users ["email=?" email] u_user)
     )
   )
-  (get-user id)
+  (get-user email)
 )
 
-(defn delete-user [id]
+(defn delete-user [email]
   (sql/with-connection (db-connection)
-    (sql/delete-rows :users ["id=?" id])
+    (sql/delete-rows :users ["email=?" email])
   )
   {:status 204}
 )

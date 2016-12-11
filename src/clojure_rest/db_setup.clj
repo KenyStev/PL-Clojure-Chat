@@ -9,9 +9,8 @@
 (if (not (.exists (as-file "db/clojurechat.h2.db") ))
   (sql/with-connection (db-connection)
     ;(sql/drop-table :users) ; no need to do that for in-memory databases
-    (sql/create-table :users 
-      [:id "varchar(256)" "primary key"]
-      [:email "varchar(150)"]
+    (sql/create-table :users
+      [:email "varchar(150)" "primary key"]
       [:username :varchar]
       [:password :varchar]
       [:realname :varchar]
