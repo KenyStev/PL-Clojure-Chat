@@ -16,10 +16,14 @@
     [clojure-rest.emojis :refer :all]
     [clojure-rest.messages :refer :all]
     [compojure.route :as route]
+    [ring.middleware.cors :refer [wrap-cors]]
   )
 )
 
-    
+;; accept everything
+(wrap-cors routes #".*")
+(wrap-cors routes identity)
+
 (defroutes app-routes
   (GET "/" [] "Clojure Rest-API by Nexer Rodriguez and Kevin Estevez")
   (mp/wrap-multipart-params 

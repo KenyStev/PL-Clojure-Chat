@@ -11,7 +11,8 @@
                  [org.clojure/clojure-contrib "1.2.0"]
                  [org.clojure/java.jdbc "0.2.3"]
                  [com.h2database/h2 "1.3.168"]
-                 [cheshire "4.0.3"]]
+                 [cheshire "4.0.3"]
+                 [jumblerg/ring.middleware.cors "1.0.1"]]
   :plugins [[lein-ring "0.9.7"]]
   :ring {:handler clojure-rest.handler/app
          :port 8000
