@@ -21,7 +21,7 @@
 
     
 (defroutes app-routes
-  (GET "/" [] "Clojure Rest-API by Nexer Rodriguez")
+  (GET "/" [] "Clojure Rest-API by Nexer Rodriguez and Kevin Estevez")
   (mp/wrap-multipart-params 
   (POST "/" {params :params} (upload-file (get params "file"))))
   (context "/users" [] (defroutes user-routes
@@ -56,7 +56,8 @@
   )
   (context "/messages" [] (defroutes message-routes
     (GET "/" [] (get-all-messages))
-    (POST "/" {body :body headers :headers} (create-new-message body headers))
+    (GET "/between/:from-who/:to-who" [from-who to-who] (get-messages-between from-who to-who))
+    (POST "/" {body :body} (create-new-message body))
     (context "/:id" [id] (defroutes messages-routes
       (GET "/" [] (get-message id))
       (PUT "/" {body :body} (update-message body))

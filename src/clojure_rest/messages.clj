@@ -31,7 +31,7 @@
   )
 )
 
-(defn create-new-message [message headers]
+(defn create-new-message [message]
   (let [id (uuid)]
     (sql/with-connection (db-connection)
       (let [n_message (assoc message "id" id)]
@@ -56,4 +56,16 @@
     (sql/delete-rows :messages ["id=?" id])
   )
   {:status 204}
+)
+
+(defn get-messages-between [from-who to-who]
+  (response
+    (sql/with-connection (db-connection)
+      (sql/with-query-results results
+        ["select * from messages where from_who = ? and to_who = ? 
+          or from_who = ? and to_who = ?" from-who to-who to-who from-who]
+        (into [] results)
+      )
+    )
+  )
 )

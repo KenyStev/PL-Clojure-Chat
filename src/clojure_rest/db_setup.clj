@@ -36,8 +36,8 @@
       [:id "varchar(256)" "primary key"]
       [:from_who "varchar(256)"]
       [:to_who "varchar(256)"]
-      [:type "varchar(256)"]
       [:message "varchar(2048)"]
+      [:sent "datetime"]
     )
 
     ;(sql/transaction
