@@ -80,7 +80,7 @@
   (response
     (sql/with-connection (db-connection)
       (sql/with-query-results results
-        ["select u.realname, u.email from users u inner join messages m on m.to_who = u.email and m.from_who = ?" from-who]
+        ["select u.realname, u.email from users u inner join messages m on m.to_who = u.email where m.from_who = ? group by u.realname" from-who]
         (into [] results)
       )
     )

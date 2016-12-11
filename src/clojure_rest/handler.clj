@@ -78,7 +78,7 @@
     )
   )
   (GET "/rooms-users" [] (get-all-rooms-users))
-  (GET "/:user_id/chats" [user_id] (get-chats user_id))
+  (GET "/chats/:user_id" [user_id] (get-chats user_id))
   (route/not-found "Not Found")
 )
 
