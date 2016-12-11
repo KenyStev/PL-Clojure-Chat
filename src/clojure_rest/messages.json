@@ -6,6 +6,13 @@
 	"realname":"Kevin Estevez"
 }
 
+{
+	"username":"rnexer",
+	"email":"rnexer@gmail.com",
+	"password":"Hola123",
+	"realname":"Nexer Rodriguez"
+}
+
 //rooms
 {
 	"name":"trolles"
@@ -13,21 +20,27 @@
 
 //messages
 {
-	"from_who":"kenystev",
-	"to_who":"rnexer",
+	"from_who":"kenystev@gmail.com",
+	"to_who":"rnexer@gmail.com",
 	"message":"vos sos un pendejo"
 }
 
 {
-	"from_who":"kenystev",
-	"to_who":"rnexer",
+	"from_who":"kenystev@gmail.com",
+	"to_who":"rnexer@gmail.com",
 	"message":"cheque perro"
 }
 
 {
-	"from_who":"rnexer",
-	"to_who":"kenystev",
+	"from_who":"rnexer@gmail.com",
+	"to_who":"kenystev@gmail.com",
 	"message":"weno prro no c noje"
+}
+
+{
+	"from_who":"rnexer@gmail.com",
+	"to_who":"kenystev@gmail.com",
+	"message":"weno prro no c noje por 2"
 }
 
 {
