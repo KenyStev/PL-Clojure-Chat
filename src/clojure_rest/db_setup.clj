@@ -21,8 +21,8 @@
       [:user_id1 "varchar(256)"]
       [:user_id2 "varchar(256)"]
       [:since :date]
-      ["foreign key" "(user_id1) references users(id)"]
-      ["foreign key" "(user_id2) references users(id)"]
+      ["foreign key" "(user_id1) references users(email)"]
+      ["foreign key" "(user_id2) references users(email)"]
     )
 
     (sql/create-table :emojis 
