@@ -73,10 +73,6 @@
     (handler/api app-routes)
     (middleware/wrap-json-body)
     (middleware/wrap-json-response)
-    (
-      middleware/app-handler [home-routes app-routes]
-      :middleware [#(wrap-cors % 
-        :access-control-allow-origin #"*"]
-    )
+    (wrap-cors :access-control-allow-origin [#".*"])
   )
 )
