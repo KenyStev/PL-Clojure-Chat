@@ -20,10 +20,6 @@
   )
 )
 
-;; accept everything
-(wrap-cors routes #".*")
-(wrap-cors routes identity)
-
 (defroutes app-routes
   (GET "/" [] "Clojure Rest-API by Nexer Rodriguez and Kevin Estevez")
   (mp/wrap-multipart-params 
@@ -77,5 +73,10 @@
     (handler/api app-routes)
     (middleware/wrap-json-body)
     (middleware/wrap-json-response)
+    (
+      middleware/app-handler [home-routes app-routes]
+      :middleware [#(wrap-cors % 
+        :access-control-allow-origin #"*"]
+    )
   )
 )
