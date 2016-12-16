@@ -12,17 +12,17 @@
   (response
     (sql/with-connection (db-connection)
       (sql/with-query-results results
-        ["select f.id as relation_id, u.email, u.username, u.realname from users u inner join friends f on u.id = f.user_id1  where user_id1 = ? " user_email]
+        ["select u.email, u.username, u.realname from users u inner join friends f on u.email = f.user_id1 and user_id2 = ? or u.email = f.user_id2 and user_id1 = ?" user_email user_email]
         (into [] results)
       )
     )
   )
 )
 
-(defn get-friend [email]
+(defn get-friend [id]
   (sql/with-connection (db-connection)
     (sql/with-query-results results
-      ["select f.id as friend_id, u.email, u.username, u.realname from users u inner join friends f on u.email = f.user_id1  where u.email = ? " email]
+      ["select f.id as friend_id, u.email, u.username, u.realname from users u inner join friends f on u.email = f.user_id1  where f.id = ? " id]
       (cond
         (empty? results) {:status 404 :body "Friend not found"}
         :else (response (first results))
