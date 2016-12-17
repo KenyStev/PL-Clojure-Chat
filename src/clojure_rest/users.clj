@@ -99,3 +99,11 @@
     )
   )
 )
+
+(defn get-profile-picture [user_email]
+  (let [usr (get (get-user user_email) :body)]
+    (println "email: " user_email)
+    (println "usr: " usr)
+    (get usr :profile_picture)
+  )
+)

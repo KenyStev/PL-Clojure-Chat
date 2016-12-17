@@ -63,7 +63,7 @@
     (sql/with-connection (db-connection)
       (sql/with-query-results results
         ["select * from messages where from_who = ? and to_who = ? 
-          or from_who = ? and to_who = ?" from-who to-who to-who from-who]
+          or from_who = ? and to_who = ? order by sent desc" from-who to-who to-who from-who]
         (into [] results)
       )
     )

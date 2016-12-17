@@ -47,6 +47,13 @@
     )
   )
   (mp/wrap-multipart-params
+    (GET "/profile-picture/:user_email" [user_email]
+      (file-response
+        (get-profile-picture user_email) {:root "./"}
+      )
+    )
+  )
+  (mp/wrap-multipart-params
     (context "/users" [] (defroutes user-routes
       (GET "/" [] (get-all-users))
       (POST "/" {body :body headers :headers} (create-new-user body headers))
