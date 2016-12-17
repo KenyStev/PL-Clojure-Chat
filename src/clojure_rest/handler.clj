@@ -24,11 +24,10 @@
 
 (defroutes app-routes
   (GET "/" [] "Clojure Rest-API by Nexer Rodriguez and Kevin Estevez")
-  (mp/wrap-multipart-params 
-  (POST "/" {params :params} (upload-file (get params "file"))))
   
   (mp/wrap-multipart-params 
     (POST "/user/update-picture" {params :params}
+      (println (str "email: " (get params "email")))
       (println (str "params: " params))
       (let [image (get params "profileImage")]
         (let [usr (get (get-user (get params "email")) :body)]
@@ -45,12 +44,11 @@
         )
       )
     )
+    ; (POST "/" {params :params} (upload-file (get params "file")))
   )
-  (mp/wrap-multipart-params
-    (GET "/profile-picture/:user_email" [user_email]
-      (file-response
-        (get-profile-picture user_email) {:root "./"}
-      )
+  (GET "/profile-picture/:user_email" [user_email]
+    (file-response
+      (get-profile-picture user_email) {:root "./"}
     )
   )
   (context "/users" [] (defroutes user-routes
