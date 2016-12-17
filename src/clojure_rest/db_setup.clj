@@ -39,6 +39,7 @@
       [:message "varchar(2048)"]
       [:sent "datetime"]
       [:seen "boolean"]
+      [:type "varchar(4)"]
     )
 
     (sql/create-table :rooms

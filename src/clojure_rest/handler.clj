@@ -85,6 +85,7 @@
   (context "/messages" [] (defroutes message-routes
     (GET "/" [] (get-all-messages))
     (GET "/between/:from-who/:to-who" [from-who to-who] (get-messages-between from-who to-who))
+    (GET "/between/:to-which-room" [to-which-room] (get-messages-from-room to-which-room))
     (POST "/" {body :body} (create-new-message body))
     (context "/:id" [id] (defroutes messages-routes
       (GET "/" [] (get-message id))
@@ -103,7 +104,11 @@
       ))
     )
   )
-  (GET "/rooms-users" [] (get-all-rooms-users))
+  (context "/rooms-users" [] (defroutes room-users-router
+    (GET "/" [] (get-all-rooms-users))
+    (POST "/" {body :body} (create-new-room-user body))
+    )
+  )
   (GET "/chats/:user_id" [user_id] (get-chats user_id))
   (route/not-found "Not Found")
 )

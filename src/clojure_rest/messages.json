@@ -39,6 +39,19 @@
 	"name":"trolles"
 }
 
+//rooms-users
+{
+	"room_id":"trolles",
+	"user_id":"isaula@gmail.com",
+	"is_admin":"false"
+}
+
+{
+	"room_id":"trolles",
+	"user_id":"rnexer@gmail.com",
+	"is_admin":"false"
+}
+
 //friends
 {
 	"user_id1":"kenystev@gmail.com",
@@ -60,49 +73,95 @@
 	"from_who":"kenystev@gmail.com",
 	"to_who":"rnexer@gmail.com",
 	"message":"vos sos un pendejo",
-	"sent":"2016-12-17T19:26:23.949Z"
+	"sent":"2016-12-17T19:26:23.949Z",
+	"type":"user"
 }
 
 {
 	"from_who":"kenystev@gmail.com",
 	"to_who":"rnexer@gmail.com",
 	"message":"cheque perro",
-	"sent":"2016-12-17T20:26:23.949Z"
+	"sent":"2016-12-17T20:26:23.949Z",
+	"type":"user"
 }
 
 {
 	"from_who":"rnexer@gmail.com",
 	"to_who":"kenystev@gmail.com",
 	"message":"weno prro no c noje",
-	"sent":"2016-12-17T20:45:23.949Z"
+	"sent":"2016-12-17T20:45:23.949Z",
+	"type":"user"
 }
 
 {
 	"from_who":"rnexer@gmail.com",
 	"to_who":"kenystev@gmail.com",
-	"message":"weno prro no c noje por 2"
+	"message":"weno prro no c noje por 2",
+	"sent":"2016-12-17T20:50:23.949Z",
+	"type":"user"
 }
 
 {
-	"from_who":"isaula",
-	"to_who":"raim",
-	"message":"no hoda perro"
+	"from_who":"isaula@gmail.com",
+	"to_who":"raim@gmail.com",
+	"message":"no hoda perro",
+	"sent":"2016-12-17T20:51:23.949Z",
+	"type":"user"
 }
 
 {
-	"from_who":"isaula",
-	"to_who":"kenystev",
-	"message":"vaya pues calmese"
+	"from_who":"isaula@gmail.com",
+	"to_who":"kenystev@gmail.com",
+	"message":"vaya pues calmese",
+	"sent":"2016-12-17T21:00:23.949Z",
+	"type":"user"
 }
 
 {
-	"from_who":"kenystev",
-	"to_who":"rnexer",
-	"message":"no compa"
+	"from_who":"kenystev@gmail.com",
+	"to_who":"rnexer@gmail.com",
+	"message":"no compa",
+	"sent":"2016-12-17T21:5:23.949Z",
+	"type":"user"
 }
 
 {
-	"from_who":"kenystev",
-	"to_who":"isaula",
-	"message":"hasta la vista baby"
+	"from_who":"kenystev@gmail.com",
+	"to_who":"isaula@gmail.com",
+	"message":"hasta la vista baby",
+	"sent":"2016-12-17T21:10:23.949Z",
+	"type":"user"
+}
+
+{
+	"from_who":"raim@gmail.com",
+	"to_who":"kenystev@gmail.com",
+	"message":"no hoda perro",
+	"sent":"2016-12-17T20:55:23.949Z",
+	"type":"user"
+}
+
+//message-room
+{
+	"from_who":"isaula@gmail.com",
+	"to_who":"trolles",
+	"message":"hasta la vista baby",
+	"sent":"2016-12-17T21:10:23.949Z",
+	"type":"room"
+}
+
+{
+	"from_who":"kenystev@gmail.com",
+	"to_who":"trolles",
+	"message":"hasta la vista baby",
+	"sent":"2016-12-17T21:10:24.949Z",
+	"type":"room"
+}
+
+{
+	"from_who":"isaula@gmail.com",
+	"to_who":"trolles",
+	"message":"hasta la vista baby",
+	"sent":"2016-12-17T21:15:24.949Z",
+	"type":"room"
 }

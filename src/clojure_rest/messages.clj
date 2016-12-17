@@ -69,3 +69,14 @@
     )
   )
 )
+
+(defn get-messages-from-room [to-which-room]
+  (response
+    (sql/with-connection (db-connection)
+      (sql/with-query-results results
+        ["select * from messages where to_who = ? order by sent desc" to-which-room]
+        (into [] results)
+      )
+    )
+  )
+)
