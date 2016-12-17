@@ -27,6 +27,13 @@
 	"realname":"Raim Interiano"
 }
 
+{
+	"username":"tonio",
+	"email":"tonio@gmail.com",
+	"password":"Hola123",
+	"realname":"Jose Antonio"
+}
+
 //rooms
 {
 	"name":"trolles"
