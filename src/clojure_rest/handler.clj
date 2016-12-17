@@ -39,6 +39,7 @@
               ; (assoc usr "profilePicture" (str "db/profilePictures/" fileName))
               (println "n_user: " n_user)
               (update-user (get n_user :email) n_user)
+              {:status 200 :body "profile picture has been updated"}
             )
           )
         )
