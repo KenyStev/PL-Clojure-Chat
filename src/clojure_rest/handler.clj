@@ -59,7 +59,7 @@
     (POST "/login" {body :body } (login body))
     (context "/:id" [id] (defroutes users-routes
       (GET "/" [] (get-user id))
-      (PUT "/" {body :body} (update-user body))
+      (PUT "/" {body :body} (update-user id body))
       (DELETE "/" [] (delete-user id))
       ))
     )
