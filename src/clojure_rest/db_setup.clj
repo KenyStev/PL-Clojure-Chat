@@ -21,7 +21,7 @@
       [:id "varchar(256)" "primary key"]
       [:user_id1 "varchar(256)"]
       [:user_id2 "varchar(256)"]
-      [:since :date]
+      [:since "datetime"]
       ["foreign key" "(user_id1) references users(email)"]
       ["foreign key" "(user_id2) references users(email)"]
     )
