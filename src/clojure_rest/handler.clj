@@ -53,17 +53,15 @@
       )
     )
   )
-  (mp/wrap-multipart-params
-    (context "/users" [] (defroutes user-routes
-      (GET "/" [] (get-all-users))
-      (POST "/" {body :body headers :headers} (create-new-user body headers))
-      (POST "/login" {body :body } (login body))
-      (context "/:id" [id] (defroutes users-routes
-        (GET "/" [] (get-user id))
-        (PUT "/" {body :body} (update-user body))
-        (DELETE "/" [] (delete-user id))
-        ))
-      )
+  (context "/users" [] (defroutes user-routes
+    (GET "/" [] (get-all-users))
+    (POST "/" {body :body headers :headers} (create-new-user body headers))
+    (POST "/login" {body :body } (login body))
+    (context "/:id" [id] (defroutes users-routes
+      (GET "/" [] (get-user id))
+      (PUT "/" {body :body} (update-user body))
+      (DELETE "/" [] (delete-user id))
+      ))
     )
   )
   (context "/friends" [] (defroutes friend-routes
