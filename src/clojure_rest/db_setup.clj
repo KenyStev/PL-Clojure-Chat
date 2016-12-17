@@ -14,6 +14,7 @@
       [:username :varchar]
       [:password :varchar]
       [:realname :varchar]
+      [:profile_picture :varchar]
     )
 
     (sql/create-table :friends 

@@ -13,9 +13,46 @@
 	"realname":"Nexer Rodriguez"
 }
 
+{
+	"username":"lisaula",
+	"email":"isaula@gmail.com",
+	"password":"Hola123",
+	"realname":"Luis Isaula"
+}
+
+{
+	"username":"raim",
+	"email":"raim@gmail.com",
+	"password":"Hola123",
+	"realname":"Raim Interiano"
+}
+
+{
+	"username":"tonio",
+	"email":"tonio@gmail.com",
+	"password":"Hola123",
+	"realname":"Jose Antonio"
+}
+
 //rooms
 {
 	"name":"trolles"
+}
+
+//friends
+{
+	"user_id1":"kenystev@gmail.com",
+	"user_id2":"rnexer@gmail.com"
+}
+
+{
+	"user_id1":"kenystev@gmail.com",
+	"user_id2":"isaula@gmail.com"
+}
+
+{
+	"user_id1":"raim@gmail.com",
+	"user_id2":"lisaula@gmail.com"
 }
 
 //messages

@@ -26,19 +26,41 @@
   (GET "/" [] "Clojure Rest-API by Nexer Rodriguez and Kevin Estevez")
   (mp/wrap-multipart-params 
   (POST "/" {params :params} (upload-file (get params "file"))))
-  (context "/users" [] (defroutes user-routes
-    (GET "/" [] (get-all-users))
-    (POST "/" {body :body headers :headers} (create-new-user body headers))
-    (POST "/login" {body :body } (login body))
-    (context "/:id" [id] (defroutes users-routes
-      (GET "/" [] (get-user id))
-      (PUT "/" {body :body} (update-user body))
-      (DELETE "/" [] (delete-user id))
-      ))
+  
+  (mp/wrap-multipart-params 
+    (POST "/user/update-picture" {params :params}
+      (println (str "params: " params))
+      (let [image (get params "profileImage")]
+        (let [usr (get (get-user (get params "email")) :body)]
+          (println "usr: " usr)
+            (let [fileName (str (str (get usr :username) "/") (get image :filename))]
+            (println (str "fileName: " fileName))
+            (upload-file-to image fileName)
+            (let [n_user (assoc usr :profile_picture (str "db/profilePictures/" fileName))] 
+              ; (assoc usr "profilePicture" (str "db/profilePictures/" fileName))
+              (println "n_user: " n_user)
+              (update-user (get n_user :email) n_user)
+            )
+          )
+        )
+      )
+    )
+  )
+  (mp/wrap-multipart-params
+    (context "/users" [] (defroutes user-routes
+      (GET "/" [] (get-all-users))
+      (POST "/" {body :body headers :headers} (create-new-user body headers))
+      (POST "/login" {body :body } (login body))
+      (context "/:id" [id] (defroutes users-routes
+        (GET "/" [] (get-user id))
+        (PUT "/" {body :body} (update-user body))
+        (DELETE "/" [] (delete-user id))
+        ))
+      )
     )
   )
   (context "/friends" [] (defroutes friend-routes
-    (GET "/:user_email" [user_email] (get-all-friends user_email))
+    (GET "/from/:user_email" [user_email] (get-all-friends user_email))
     (POST "/" {body :body headers :headers} (create-new-friend body headers))
     (context "/:id" [id] (defroutes friends-routes
       (GET "/" [] (get-friend id))

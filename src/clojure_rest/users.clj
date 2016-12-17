@@ -62,9 +62,9 @@
 
 (defn update-user [email user]
   (sql/with-connection (db-connection)
-    (let [u_user (assoc user "email" email)]
-      (sql/update-values :users ["email=?" email] u_user)
-    )
+    ; (let [u_user (assoc user "email" email)]
+      (sql/update-values :users ["email=?" email] user)
+    ; )
   )
   (get-user email)
 )
