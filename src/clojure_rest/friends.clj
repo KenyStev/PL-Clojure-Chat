@@ -12,7 +12,7 @@
   (response
     (sql/with-connection (db-connection)
       (sql/with-query-results results
-        ["select f.id as friend_id, u.email, u.username, u.realname, u.since from users u inner join friends f on u.email = f.user_id1 and user_id2 = ? or u.email = f.user_id2 and user_id1 = ?" user_email user_email]
+        ["select f.id as friend_id, u.email, u.username, u.realname, f.since from users u inner join friends f on u.email = f.user_id1 and user_id2 = ? or u.email = f.user_id2 and user_id1 = ?" user_email user_email]
         (into [] results)
       )
     )
