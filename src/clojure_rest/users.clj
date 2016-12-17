@@ -51,8 +51,10 @@
     (println result)
     (if (= result 0)
       (sql/with-connection (db-connection)
-        (sql/insert-record :users user)
-        (get-user (get user "email"))
+        (let [n_user (assoc user :profile_picture "db/profilePictures/user.png")]
+          (sql/insert-record :users n_user)
+          (get-user (get n_user "email"))
+        )
       )
 
       {:status 500 :body "User already exist!"}
