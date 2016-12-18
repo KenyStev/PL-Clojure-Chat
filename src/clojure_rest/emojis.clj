@@ -37,7 +37,7 @@
     (sql/with-query-results results
       ["select * from emojis where name = ?" nameEmoji]
       (cond
-        (empty? results) {:status 404 :body "Emoji not found"}
+        (empty? results) {:status 404 :body {:image "db/emojis/not-found.jpg" :msg "Emoji not found"} }
         :else (response (first results))
       )
     )

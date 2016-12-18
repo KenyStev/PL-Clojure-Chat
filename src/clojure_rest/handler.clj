@@ -50,7 +50,6 @@
     )
     (POST "/emojis/upload" {params :params}
       (create-new-emoji-image params)
-      ; {:status 200 :body "emoji has been created"}
     )
     (POST "/" {params :params} (upload-file (get params "file")))
     )
