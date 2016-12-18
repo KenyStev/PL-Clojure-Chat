@@ -37,7 +37,7 @@
     (sql/with-query-results results
       ["select * from emojis where name = ?" nameEmoji]
       (cond
-        (empty? results) {:status 404 :body {:image "db/emojis/not-found.jpg" :msg "Emoji not found"} }
+        (empty? results) {:status 404 :body {:image "resources/emojis/not-found.png" :msg "Emoji not found"} }
         :else (response (first results))
       )
     )
@@ -70,7 +70,7 @@
   (let [nameEmoji (get params "name") emoji-without-image (assoc {} "name" nameEmoji)]
     (upload-emoji-to (get params "image") nameEmoji)
     (let [n_emoji (assoc emoji-without-image "image" 
-      (str "db/emojis/" nameEmoji "_" (get (get params "image") :filename)))]
+      (str "resources/emojis/" nameEmoji "_" (get (get params "image") :filename)))]
       (println "n_msg: " n_emoji)
       (create-new-emoji n_emoji)
     )

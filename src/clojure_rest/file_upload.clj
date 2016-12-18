@@ -36,7 +36,7 @@
 (defn upload-emoji-to
   [file namefile]
   (println "Trying to upload a image")
-  (let [dir-name (str "db/emojis/" namefile "_" (get file :filename))]
+  (let [dir-name (str "resources/emojis/" namefile "_" (get file :filename))]
     (make-parents dir-name)
     (ds/copy (file :tempfile) (ds/file-str dir-name))
     (response "File-Upload")
