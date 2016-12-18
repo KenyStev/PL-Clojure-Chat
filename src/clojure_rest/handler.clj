@@ -35,8 +35,8 @@
             (let [fileName (str (str (get usr :username) "/") (get image :filename))]
             (println (str "fileName: " fileName))
             (upload-file-to image fileName)
-            (let [n_user (assoc usr :profile_picture (str "db/profilePictures/" fileName))] 
-              ; (assoc usr "profilePicture" (str "db/profilePictures/" fileName))
+            (let [n_user (assoc usr :profile_picture (str "resources/profilePictures/" fileName))] 
+              ; (assoc usr "profilePicture" (str "resources/profilePictures/" fileName))
               (println "n_user: " n_user)
               (update-user (get n_user :email) n_user)
               {:status 200 :body "profile picture has been updated"}

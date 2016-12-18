@@ -51,7 +51,7 @@
     (println result)
     (if (= result 0)
       (sql/with-connection (db-connection)
-        (let [n_user (assoc user :profile_picture "db/profilePictures/user.png")]
+        (let [n_user (assoc user :profile_picture "resources/profilePictures/user.png")]
           (sql/insert-record :users n_user)
           (get-user (get n_user "email"))
         )

@@ -97,5 +97,5 @@
 )
 
 (defn get-image-from-message [imagepath]
-  (str "db/images/" imagepath)
+  (str "resources/images/" imagepath)
 )
