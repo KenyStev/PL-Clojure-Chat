@@ -1,9 +1,49 @@
 (ns clojure-rest.seeds
   (:require 
     [clojure-rest.emojis :refer :all]
+    [clojure-rest.users :refer :all]
   )
 )
 
+; users
+(def kenystev {
+	:username "kenystev"
+	:email "kenystev@gmail.com"
+	:password "password"
+	:realname "Kevin Estevez"
+})
+(def rnexer {
+	:username "rnexer"
+	:email "rnexer@gmail.com"
+	:password "password"
+	:realname "Nexer Rodriguez"
+})
+(def lisaula {
+	:username "lisaula"
+	:email "lisaula@gmail.com"
+	:password "password"
+	:realname "Luis Isaula"
+})
+(def raim {
+	:username "raim"
+	:email "raim@gmail.com"
+	:password "password"
+	:realname "Ricardo Interiano"
+})
+(def tonio {
+	:username "tonio"
+	:email "tonio@gmail.com"
+	:password "password"
+	:realname "Jose Mejia"
+})
+(def poio-user {
+	:username "poio"
+	:email "poio@chicken.pio"
+	:password "password"
+	:realname "Carlos Castro"
+})
+
+; emojis
 (def poio {:name "poio" :image "resources/emojis/poio.png"})
 (def laugh {:name "laugh" :image "resources/emojis/laugh.png"})
 (def shit {:name "shit" :image "resources/emojis/shit.png"})
@@ -21,6 +61,16 @@
 	(create-new-emoji heart)
 )
 
+(defn users-seed []
+	(create-new-user kenystev)
+	(create-new-user rnexer)
+	(create-new-user lisaula)
+	(create-new-user raim)
+	(create-new-user tonio)
+	(create-new-user poio-user)
+)
+
 (defn seed []
+	(users-seed)
 	(emojis-seed)
 )

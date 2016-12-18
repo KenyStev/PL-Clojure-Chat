@@ -62,7 +62,7 @@
   )
   (context "/users" [] (defroutes user-routes
     (GET "/" [] (get-all-users))
-    (POST "/" {body :body headers :headers} (create-new-user body headers))
+    (POST "/" {body :body} (create-new-user body))
     (POST "/login" {body :body } (login body))
     (context "/:id" [id] (defroutes users-routes
       (GET "/" [] (get-user id))

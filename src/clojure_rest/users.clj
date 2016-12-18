@@ -44,11 +44,8 @@
   )
 )
 
-(defn create-new-user [user headers]
-	(println (get user "realname"))
-  (println (get headers "content-type"))
+(defn create-new-user [user]
   (let [result (exist? (get user "email"))]
-    (println result)
     (if (= result 0)
       (sql/with-connection (db-connection)
         (let [n_user (assoc user :profile_picture "resources/profilePictures/user.png")]

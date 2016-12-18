@@ -20,7 +20,6 @@
   )
 )
 (defn emoji-exist? [nameEmoji]
-  (println "viendo si existe")
   (sql/with-connection (db-connection)
     (sql/with-query-results results
       ["select * from emojis where name = ?" nameEmoji]
