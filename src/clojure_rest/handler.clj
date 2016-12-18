@@ -59,6 +59,7 @@
     (context "/:id" [id] (defroutes users-routes
       (GET "/" [] (get-user id))
       (GET "/my-rooms" [] (get-my-rooms id))
+      (GET "/rooms" [] (get-rooms-where-iam id))
       (PUT "/" {body :body} (update-user id body))
       (DELETE "/" [] (delete-user id))
       ))
@@ -86,7 +87,7 @@
   (context "/messages" [] (defroutes message-routes
     (GET "/" [] (get-all-messages))
     (GET "/between/:from-who/:to-who" [from-who to-who] (get-messages-between from-who to-who))
-    (GET "/between/:to-which-room" [to-which-room] (get-messages-from-room to-which-room))
+    (GET "/from/room/:to-which-room" [to-which-room] (get-messages-from-room to-which-room))
     (POST "/" {body :body} (create-new-message body))
     (context "/:id" [id] (defroutes messages-routes
       (GET "/" [] (get-message id))

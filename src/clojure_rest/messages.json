@@ -83,6 +83,18 @@
 	"is_admin":"false"
 }
 
+{
+	"room_id":"whatafuck",
+	"user_id":"rnexer@gmail.com",
+	"is_admin":"false"
+}
+
+{
+	"room_id":"whatafuck",
+	"user_id":"isaula@gmail.com",
+	"is_admin":"false"
+}
+
 //friends
 {
 	"user_id1":"kenystev@gmail.com",
