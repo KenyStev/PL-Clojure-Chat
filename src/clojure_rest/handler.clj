@@ -101,14 +101,18 @@
     (POST "/new" {body :body} (create-new-room (get body "admin") (get body "room")))
     (context "/:name_room" [name_room] (defroutes rooms-routes
       (GET "/" [] (get-room name_room))
+      (GET "/all-users" [] (get-users-for-room name_room))
       (PUT "/" {body :body} (update-room name_room body))
       (DELETE "/" [] (delete-room name_room))
       ))
     )
   )
-  (context "/rooms-users" [] (defroutes room-users-router
+  (context "/rooms-users" [] (defroutes room-users-routes
     (GET "/" [] (get-all-rooms-users))
     (POST "/" {body :body} (create-new-room-user body))
+    (context "/:id" [id] (defroutes rooms-users-routes
+      (DELETE "/" [] (delete-room-user id))
+      ))
     )
   )
   (GET "/chats/:user_id" [user_id] (get-chats user_id))

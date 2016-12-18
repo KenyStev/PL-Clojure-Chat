@@ -55,12 +55,5 @@
       ["foreign key" "(room_id) references rooms(name)"]
       ["foreign key" "(user_id) references users(email)"]
     )
-
-    ;(sql/transaction
-    ;  ["create table FRIENDS ( id varchar(256), user_id_1 varchar(256), user_id2 varchar(256),
-    ;    since date, primary key (id), foreign key (user_id1) references users(id),
-    ;    foreign key (user_id2) references users(id)
-    ;  )"]
-    ;)
   )
 )
