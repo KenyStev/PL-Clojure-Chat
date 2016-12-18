@@ -58,6 +58,7 @@
     (POST "/login" {body :body } (login body))
     (context "/:id" [id] (defroutes users-routes
       (GET "/" [] (get-user id))
+      (GET "/my-rooms" [] (get-my-rooms id))
       (PUT "/" {body :body} (update-user id body))
       (DELETE "/" [] (delete-user id))
       ))
@@ -96,7 +97,7 @@
   )
   (context "/rooms" [] (defroutes room-routes
     (GET "/" [] (get-all-rooms))
-    (POST "/new/:admin" {body :body admin :admin} (create-new-room admin body))
+    (POST "/new" {body :body} (create-new-room (get body "admin") (get body "room")))
     (context "/:name_room" [name_room] (defroutes rooms-routes
       (GET "/" [] (get-room name_room))
       (PUT "/" {body :body} (update-room name_room body))

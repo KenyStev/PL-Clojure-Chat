@@ -36,7 +36,38 @@
 
 //rooms
 {
-	"name":"trolles"
+	"admin":"kenystev@gmail.com",
+	"room":{
+		"name":"trolles"
+	}
+}
+
+{
+	"admin":"kenystev@gmail.com",
+	"room":{
+		"name":"quepedo"
+	}
+}
+
+{
+	"admin":"kenystev@gmail.com",
+	"room":{
+		"name":"whatafuck"
+	}
+}
+
+{
+	"admin":"rnexer@gmail.com",
+	"room":{
+		"name":"holamundo"
+	}
+}
+
+{
+	"admin":"rnexer@gmail.com",
+	"room":{
+		"name":"adiospapa"
+	}
 }
 
 //rooms-users
