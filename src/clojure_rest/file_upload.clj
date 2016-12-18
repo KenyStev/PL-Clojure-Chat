@@ -16,7 +16,27 @@
 (defn upload-file-to
   [file namefile]
   (println "Trying to upload a file")
-  (let [dir-name (str "db/profilePictures/" namefile)]
+  (let [dir-name (str "resources/profilePictures/" namefile)]
+    (make-parents dir-name)
+    (ds/copy (file :tempfile) (ds/file-str dir-name))
+    (response "File-Upload")
+    )
+  )
+
+(defn upload-image-to
+  [file namefile]
+  (println "Trying to upload a image")
+  (let [dir-name (str "resources/images/" namefile "_" (get file :filename))]
+    (make-parents dir-name)
+    (ds/copy (file :tempfile) (ds/file-str dir-name))
+    (response "File-Upload")
+    )
+  )
+
+(defn upload-emoji-to
+  [file namefile]
+  (println "Trying to upload a image")
+  (let [dir-name (str "resources/emojis/" namefile "_" (get file :filename))]
     (make-parents dir-name)
     (ds/copy (file :tempfile) (ds/file-str dir-name))
     (response "File-Upload")

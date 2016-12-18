@@ -44,15 +44,14 @@
   )
 )
 
-(defn create-new-user [user headers]
-	(println (get user "realname"))
-  (println (get headers "content-type"))
+(defn create-new-user [user]
   (let [result (exist? (get user "email"))]
-    (println result)
     (if (= result 0)
       (sql/with-connection (db-connection)
-        (sql/insert-record :users user)
-        (get-user (get user "email"))
+        (let [n_user (assoc user :profile_picture "resources/profilePictures/user.png")]
+          (sql/insert-record :users n_user)
+          (get-user (get n_user "email"))
+        )
       )
 
       {:status 500 :body "User already exist!"}
@@ -80,7 +79,10 @@
   (response
     (sql/with-connection (db-connection)
       (sql/with-query-results results
-        ["select u.realname, u.email from users u inner join messages m on m.to_who = u.email where m.from_who = ? group by u.realname" from-who]
+        ["select * from (select u.email as email, u.realname, 'user' as type from users u inner join messages m on m.to_who = u.email and m.from_who = ? or m.from_who = u.email and m.to_who = ? group by u.realname) gu union (select r.name as email, r.name as realname, 'room' as type 
+          from rooms r 
+            inner join rooms_users ru on ru.room_id = r.name
+              inner join users u on ru.user_id = u.email where ru.user_id = ?)" from-who from-who from-who]
         (into [] results)
       )
     )
@@ -95,5 +97,13 @@
         :else (response (first results))
       )
     )
+  )
+)
+
+(defn get-profile-picture [user_email]
+  (let [usr (get (get-user user_email) :body)]
+    (println "email: " user_email)
+    (println "usr: " usr)
+    (get usr :profile_picture)
   )
 )

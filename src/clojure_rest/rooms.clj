@@ -60,3 +60,32 @@
   )
   {:status 204}
 )
+
+(defn get-my-rooms [usr]
+  (response
+    (sql/with-connection (db-connection)
+      (sql/with-query-results results
+        ["select r.name from rooms r inner join 
+            rooms_users ru on r.name = ru.room_id inner join
+              users u on ru.user_id = u.email where u.email = ? and ru.is_admin = true" usr]
+        (into [] results)
+      )
+    )
+  )
+)
+
+(defn get-rooms-where-iam [usr]
+  (response
+    (sql/with-connection (db-connection)
+      (sql/with-query-results results
+        ["select rim.name, u.email as admin_email, u.realname as admin_name from (select r.name 
+                    from rooms r inner join rooms_users ru on r.name = ru.room_id 
+                      inner join users u on ru.user_id = u.email 
+                        where ru.user_id = ? and ru.is_admin = false) rim
+            inner join rooms_users ru on ru.room_id = rim.name
+              inner join users u on ru.user_id = u.email where ru.is_admin = true" usr]
+        (into [] results)
+      )
+    )
+  )
+)

@@ -19,6 +19,21 @@
   )
 )
 
+(defn get-users-for-room [room]
+  (response
+    (sql/with-connection (db-connection)
+      (sql/with-query-results results
+        ["select ru.id, u.email, u.username, u.realname 
+            from users u inner join rooms_users ru
+              on u.email = ru.user_id 
+                inner join rooms r on ru.room_id = r.name
+                  where r.name = ?" room]
+        (into [] results)
+      )
+    )
+  )
+)
+
 (defn get-room-user [id]
   (sql/with-connection (db-connection)
     (sql/with-query-results results
@@ -31,7 +46,7 @@
   )
 )
 
-(defn create-new-room-user [room-user]
+(defn create-new-room-user [room-user] ;validar si ya esta agregado
   (let [id (uuid)]
   	(println (get room-user "user_id"))
     (println (get room-user "room_id"))

@@ -24,11 +24,10 @@
 
 (defroutes app-routes
   (GET "/" [] "Clojure Rest-API by Nexer Rodriguez and Kevin Estevez")
-  (mp/wrap-multipart-params 
-  (POST "/" {params :params} (upload-file (get params "file"))))
   
-  (mp/wrap-multipart-params 
+  (mp/wrap-multipart-params (defroutes multipart-routes
     (POST "/user/update-picture" {params :params}
+      (println (str "email: " (get params "email")))
       (println (str "params: " params))
       (let [image (get params "profileImage")]
         (let [usr (get (get-user (get params "email")) :body)]
@@ -36,27 +35,42 @@
             (let [fileName (str (str (get usr :username) "/") (get image :filename))]
             (println (str "fileName: " fileName))
             (upload-file-to image fileName)
-            (let [n_user (assoc usr :profile_picture (str "db/profilePictures/" fileName))] 
-              ; (assoc usr "profilePicture" (str "db/profilePictures/" fileName))
+            (let [n_user (assoc usr :profile_picture (str "resources/profilePictures/" fileName))] 
+              ; (assoc usr "profilePicture" (str "resources/profilePictures/" fileName))
               (println "n_user: " n_user)
               (update-user (get n_user :email) n_user)
+              {:status 200 :body "profile picture has been updated"}
             )
           )
         )
       )
     )
+    (POST "/messages/with-image" {params :params}
+      (create-new-message-with-image params)
+    )
+    (POST "/emojis/upload" {params :params}
+      (create-new-emoji-image params)
+    )
+    (POST "/" {params :params} (upload-file (get params "file")))
+    )
   )
-  (mp/wrap-multipart-params
-    (context "/users" [] (defroutes user-routes
-      (GET "/" [] (get-all-users))
-      (POST "/" {body :body headers :headers} (create-new-user body headers))
-      (POST "/login" {body :body } (login body))
-      (context "/:id" [id] (defroutes users-routes
-        (GET "/" [] (get-user id))
-        (PUT "/" {body :body} (update-user body))
-        (DELETE "/" [] (delete-user id))
-        ))
-      )
+
+  (GET "/profile-picture/:user_email" [user_email]
+    (file-response
+      (get-profile-picture user_email) {:root "./"}
+    )
+  )
+  (context "/users" [] (defroutes user-routes
+    (GET "/" [] (get-all-users))
+    (POST "/" {body :body} (create-new-user body))
+    (POST "/login" {body :body } (login body))
+    (context "/:id" [id] (defroutes users-routes
+      (GET "/" [] (get-user id))
+      (GET "/my-rooms" [] (get-my-rooms id))
+      (GET "/rooms" [] (get-rooms-where-iam id))
+      (PUT "/" {body :body} (update-user id body))
+      (DELETE "/" [] (delete-user id))
+      ))
     )
   )
   (context "/friends" [] (defroutes friend-routes
@@ -68,19 +82,30 @@
       ))
     )
   )
+  (GET "/emojis/image/:image_name" [image_name]
+    (file-response
+      (get-image-from-emoji image_name) {:root "./"}
+    )
+  )
   (context "/emojis" [] (defroutes emoji-routes
     (GET "/" [] (get-all-emojis))
-    (POST "/" {body :body headers :headers} (create-new-emoji body headers))
+    ; (POST "/" {body :body headers :headers} (create-new-emoji body headers))
     (context "/:id" [id] (defroutes emojis-routes
       (GET "/" [] (get-emoji id))
-      (PUT "/" {body :body} (update-emoji body))
+      ; (PUT "/" {body :body} (update-emoji body))
       (DELETE "/" [] (delete-emoji id))
       ))
+    )
+  )
+  (GET "/messages/with-image/:image_name" [image_name]
+    (file-response
+      (get-image-from-message image_name) {:root "./"}
     )
   )
   (context "/messages" [] (defroutes message-routes
     (GET "/" [] (get-all-messages))
     (GET "/between/:from-who/:to-who" [from-who to-who] (get-messages-between from-who to-who))
+    (GET "/from/room/:to-which-room" [to-which-room] (get-messages-from-room to-which-room))
     (POST "/" {body :body} (create-new-message body))
     (context "/:id" [id] (defroutes messages-routes
       (GET "/" [] (get-message id))
@@ -91,15 +116,23 @@
   )
   (context "/rooms" [] (defroutes room-routes
     (GET "/" [] (get-all-rooms))
-    (POST "/new/:admin" {body :body admin :admin} (create-new-room admin body))
+    (POST "/new" {body :body} (create-new-room (get body "admin") (get body "room")))
     (context "/:name_room" [name_room] (defroutes rooms-routes
       (GET "/" [] (get-room name_room))
+      (GET "/all-users" [] (get-users-for-room name_room))
       (PUT "/" {body :body} (update-room name_room body))
       (DELETE "/" [] (delete-room name_room))
       ))
     )
   )
-  (GET "/rooms-users" [] (get-all-rooms-users))
+  (context "/rooms-users" [] (defroutes room-users-routes
+    (GET "/" [] (get-all-rooms-users))
+    (POST "/" {body :body} (create-new-room-user body))
+    (context "/:id" [id] (defroutes rooms-users-routes
+      (DELETE "/" [] (delete-room-user id))
+      ))
+    )
+  )
   (GET "/chats/:user_id" [user_id] (get-chats user_id))
   (route/not-found "Not Found")
 )

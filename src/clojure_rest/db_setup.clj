@@ -2,6 +2,7 @@
 	(:use clojure.java.io)
 	(:require 
       	[clojure-rest.db_config :refer :all]
+        [clojure-rest.seeds :refer :all]
       	[clojure.java.jdbc :as sql]
     )
 )
@@ -21,14 +22,13 @@
       [:id "varchar(256)" "primary key"]
       [:user_id1 "varchar(256)"]
       [:user_id2 "varchar(256)"]
-      [:since :date]
+      [:since "datetime"]
       ["foreign key" "(user_id1) references users(email)"]
       ["foreign key" "(user_id2) references users(email)"]
     )
 
     (sql/create-table :emojis 
-      [:id "varchar(256)" "primary key"]
-      [:name "varchar(256)"]
+      [:name "varchar(256)" "primary key"]
       [:image "varchar(1024)"]
     )
 
@@ -39,6 +39,7 @@
       [:message "varchar(2048)"]
       [:sent "datetime"]
       [:seen "boolean"]
+      [:type "varchar(4)"]
     )
 
     (sql/create-table :rooms
@@ -55,11 +56,7 @@
       ["foreign key" "(user_id) references users(email)"]
     )
 
-    ;(sql/transaction
-    ;  ["create table FRIENDS ( id varchar(256), user_id_1 varchar(256), user_id2 varchar(256),
-    ;    since date, primary key (id), foreign key (user_id1) references users(id),
-    ;    foreign key (user_id2) references users(id)
-    ;  )"]
-    ;)
+    ; seed
+    (seed)
   )
 )
