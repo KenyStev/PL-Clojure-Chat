@@ -48,6 +48,10 @@
     (POST "/messages/with-image" {params :params}
       (create-new-message-with-image params)
     )
+    (POST "/emojis/upload" {params :params}
+      (create-new-emoji-image params)
+      ; {:status 200 :body "emoji has been created"}
+    )
     (POST "/" {params :params} (upload-file (get params "file")))
     )
   )
@@ -79,12 +83,17 @@
       ))
     )
   )
+  (GET "/emojis/image/:image_name" [image_name]
+    (file-response
+      (get-image-from-emoji image_name) {:root "./"}
+    )
+  )
   (context "/emojis" [] (defroutes emoji-routes
     (GET "/" [] (get-all-emojis))
-    (POST "/" {body :body headers :headers} (create-new-emoji body headers))
+    ; (POST "/" {body :body headers :headers} (create-new-emoji body headers))
     (context "/:id" [id] (defroutes emojis-routes
       (GET "/" [] (get-emoji id))
-      (PUT "/" {body :body} (update-emoji body))
+      ; (PUT "/" {body :body} (update-emoji body))
       (DELETE "/" [] (delete-emoji id))
       ))
     )

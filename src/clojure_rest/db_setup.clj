@@ -27,8 +27,7 @@
     )
 
     (sql/create-table :emojis 
-      [:id "varchar(256)" "primary key"]
-      [:name "varchar(256)"]
+      [:name "varchar(256)" "primary key"]
       [:image "varchar(1024)"]
     )
 
