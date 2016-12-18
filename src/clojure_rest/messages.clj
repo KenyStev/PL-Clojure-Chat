@@ -4,6 +4,7 @@
   (:use clojure.java.io)
   (:require 
   	[clojure-rest.db_config :refer :all]
+    [clojure-rest.file_upload :refer :all]
   	[clojure.java.jdbc :as sql]
   )
 )
@@ -79,4 +80,22 @@
       )
     )
   )
+)
+
+(defn create-new-message-with-image [params]
+  (let [id (uuid)]
+    (let [from-who (get params "from_who") to-who (get params "to_who")
+          sent (get params "sent") type (get params "type")
+          msg-without-image (assoc (assoc (assoc (assoc {} "from_who" from-who) "to_who" to-who) "sent" sent) "type" type)]
+      (upload-image-to (get params "imageMsg") id)
+      (let [n_msg (assoc msg-without-image "message" (str "/:" id "_" (get (get params "imageMsg") :filename) ":/"))]
+        (println "n_msg: " n_msg)
+        (create-new-message n_msg)
+      )
+    )
+  )
+)
+
+(defn get-image-from-message [imagepath]
+  (str "db/images/" imagepath)
 )

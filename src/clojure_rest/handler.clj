@@ -25,7 +25,7 @@
 (defroutes app-routes
   (GET "/" [] "Clojure Rest-API by Nexer Rodriguez and Kevin Estevez")
   
-  (mp/wrap-multipart-params 
+  (mp/wrap-multipart-params (defroutes multipart-routes
     (POST "/user/update-picture" {params :params}
       (println (str "email: " (get params "email")))
       (println (str "params: " params))
@@ -45,8 +45,13 @@
         )
       )
     )
-    ; (POST "/" {params :params} (upload-file (get params "file")))
+    (POST "/messages/with-image" {params :params}
+      (create-new-message-with-image params)
+    )
+    (POST "/" {params :params} (upload-file (get params "file")))
+    )
   )
+
   (GET "/profile-picture/:user_email" [user_email]
     (file-response
       (get-profile-picture user_email) {:root "./"}
@@ -82,6 +87,11 @@
       (PUT "/" {body :body} (update-emoji body))
       (DELETE "/" [] (delete-emoji id))
       ))
+    )
+  )
+  (GET "/messages/with-image/:image_name" [image_name]
+    (file-response
+      (get-image-from-message image_name) {:root "./"}
     )
   )
   (context "/messages" [] (defroutes message-routes
