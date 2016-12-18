@@ -2,6 +2,7 @@
 	(:use clojure.java.io)
 	(:require 
       	[clojure-rest.db_config :refer :all]
+        [clojure-rest.seeds :refer :all]
       	[clojure.java.jdbc :as sql]
     )
 )
@@ -54,5 +55,8 @@
       ["foreign key" "(room_id) references rooms(name)"]
       ["foreign key" "(user_id) references users(email)"]
     )
+
+    ; seed
+    (seed)
   )
 )
