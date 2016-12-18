@@ -23,7 +23,7 @@
   (response
     (sql/with-connection (db-connection)
       (sql/with-query-results results
-        ["select u.email, u.username, u.realname 
+        ["select ru.id, u.email, u.username, u.realname 
             from users u inner join rooms_users ru
               on u.email = ru.user_id 
                 inner join rooms r on ru.room_id = r.name
