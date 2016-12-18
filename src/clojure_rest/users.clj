@@ -85,9 +85,13 @@
         ["select * from (select u.email as email, u.realname, 'user' as type from users u inner join messages m on m.to_who = u.email and m.from_who = ? or m.from_who = u.email and m.to_who = ? group by u.realname) gu union (select r.name as email, r.name as realname, 'room' as type 
           from rooms r 
             inner join rooms_users ru on ru.room_id = r.name
-              inner join users u on ru.user_id = u.email
-                inner join messages m on m.from_who = u.email and m.to_who = ?
-                  or m.to_who = u.email and m.from_who = ?)" from-who from-who from-who from-who]
+              inner join users u on ru.user_id = u.email where ru.user_id = ?)" from-who from-who from-who]
+        ; ["select * from (select u.email as email, u.realname, 'user' as type from users u inner join messages m on m.to_who = u.email and m.from_who = ? or m.from_who = u.email and m.to_who = ? group by u.realname) gu union (select r.name as email, r.name as realname, 'room' as type 
+        ;   from rooms r 
+        ;     inner join rooms_users ru on ru.room_id = r.name
+        ;       inner join users u on ru.user_id = u.email
+        ;         inner join messages m on m.from_who = u.email and m.to_who = ?
+        ;           or m.to_who = u.email and m.from_who = ?)" from-who from-who from-who from-who]
         (into [] results)
       )
     )
